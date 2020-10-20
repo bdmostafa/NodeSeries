@@ -12,3 +12,25 @@ const greetings = () => {
 greetings();
 
 myEvents.emit('greet', 'Hello Mostafa')
+
+
+
+// Using class based architecture
+class Greetings extends EventEmitter{
+    constructor(name){
+        super();
+        this.name = name;
+    }
+    greet(){
+        this.on('greet', data => {
+            console.log(`${data} ${this.name}`);
+        });
+    }
+}
+
+
+const myGreetings = new Greetings('Mostafa');
+
+myGreetings.greet();
+
+myGreetings.emit('greet', 'Hi')
