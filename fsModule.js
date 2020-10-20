@@ -47,3 +47,41 @@ if (fs.existsSync(myDirPath)) {
         console.log('Directory is created')
     })
 }
+
+
+// Remove folder/directory
+// If directory is not empty, it can not be removed
+// At first have to remove files inside folder
+
+// Synchronus method without callback
+// const text = fs.readdirSync(myDirPath);
+// console.log(text)
+
+if (fs.existsSync(myDirPath)) {
+    fs.readFile(myNewFilePath, 'utf-8', (err, data) => {
+        if (err) {
+            console.log(err.message)
+            return;
+        }
+        console.log(data)
+    })
+} else {
+    console.log('Directory is already removed')
+}
+
+
+fs.readdir(myDirPath, "utf-8", (err, files) => {
+    if (err) {
+        console.log(err.message)
+        return;
+    } for (const file of files) {
+        fs.unlinkSync(path.join(__dirname, 'folder', file));
+    }
+    fs.rmdir(myDirPath, (err) => {
+        if (err) {
+            console.log(err.message);
+            return;
+        }
+        console.log('Directory is removed')
+    })
+})
