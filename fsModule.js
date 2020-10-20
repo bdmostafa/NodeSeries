@@ -85,3 +85,24 @@ fs.readdir(myDirPath, "utf-8", (err, files) => {
         console.log('Directory is removed')
     })
 })
+
+
+// Stream - Buffer in practice ==============================
+fs.readFile(path.join(__dirname, 'textForStreamBuffer.txt'), 'utf-8', (err, data) => {
+    if (err) {
+        console.log(err.message)
+    }
+    console.log(data)
+})
+
+const stream = fs.createReadStream(path.join(__dirname, 'textForStreamBuffer.txt'));
+// console.log(stream);
+const writeableStream = fs.createWriteStream(path.join(__dirname, 'files', 'sample2.txt'))
+
+stream.on('once', ()=> {
+    console.log('strating to reading data');
+})
+stream.on('data', (chunk) => {
+    writeableStream.write(chunk);
+    console.log(chunk.toString())
+})
